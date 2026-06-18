@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  maple:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: maple:latest
+    container_name: maple_container
+
+    # Проброс всех путей из .env
+    environment:
+      - INPUT_DATA=${INPUT_DATA_PATH:-./input_data}
+      - OUTPUT_PATH=${OUTPUT_PATH:-./output}
+      - CHECKPOINTS_PATH=${CHECKPOINTS_PATH:-./checkpoints}
+      - TRAIN_DATA_PATH=${TRAIN_DATA_PATH:-./train_dataset}
+      - LOGS_PATH=${LOGS_PATH:-./logs}
+
+    # Монтирование томов
+    volumes:
+      - ${INPUT_DATA_PATH:-./input_data}:/data/input
+      - ${OUTPUT_PATH:-./output}:/data/output
+      - ${CHECKPOINTS_PATH:-./checkpoints}:/data/checkpoints
+      - ${TRAIN_DATA_PATH:-./train_dataset}:/data/train
+      - ${LOGS_PATH:-./logs}:/data/logs
+
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    # Команда по умолчанию (можно переопределить)
+    command: [ "/bin/bash" ]
