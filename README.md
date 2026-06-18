@@ -3,7 +3,10 @@
 ## 1. Подготовка
 
 ```bash
+git clone https://github.com/PHILIPP111007/maple-docker.git
+cd maple-docker
 git clone https://github.com/Drizzle-Zhang/MAPLE.git
+cd -
 ```
 
 ## 2. Сборка образа
